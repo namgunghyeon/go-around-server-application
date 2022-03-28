@@ -1,5 +1,5 @@
 package com.anyone.anyoneapiserver.account.application.port.out
 
-interface NewAccountPort {
-    fun newAccount();
+interface UpdateAccountPort {
+    fun updateAccount();
 }
