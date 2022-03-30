@@ -4,6 +4,7 @@ import com.anyone.anyoneapiserver.account.application.port.out.NewAccountPort
 import com.anyone.anyoneapiserver.account.application.port.out.UpdateAccountPort
 import com.anyone.anyoneapiserver.account.application.service.AccountService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -13,7 +14,12 @@ class AccountController(
     private val updateAccountPort: UpdateAccountPort
     ) {
 
-    @GetMapping("/accounts/sign-in")
+    @PostMapping("/accounts/sign-up")
+    fun signUp(): String {
+        return "회원 가입";
+    }
+
+    @PostMapping("/accounts/sign-in")
     fun signIn(): String {
 
         newAccountPort.newAccount();
