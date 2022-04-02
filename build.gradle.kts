@@ -1,5 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
     id("org.springframework.boot") version "2.6.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
@@ -7,36 +13,38 @@ plugins {
     kotlin("plugin.spring") version "1.6.10"
 }
 
-group = "com.anyone"
-version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
+allprojects {
+    group = "com.anyone"
+    version = "0.0.1-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenCentral()
+    }
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "17"
+        }
+    }
 
-    implementation("org.springframework.boot:spring-boot-starter-security")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.projectreactor:reactor-test")
-
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+    apply {
+        plugin("org.jetbrains.kotlin.jvm")
+        plugin("io.spring.dependency-management")
+    }
+
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+    }
 }
+
