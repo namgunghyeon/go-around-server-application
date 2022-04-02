@@ -3,9 +3,13 @@ package com.anyone.go_around_api.account.adapter.`in`.web
 import com.anyone.go_around_api.account.application.port.out.NewAccountPort
 import com.anyone.go_around_api.account.application.port.out.UpdateAccountPort
 import com.anyone.go_around_api.account.application.service.AccountService
+import com.anyone.go_around_api.common.GoAroundV1APIController
+import com.anyone.go_around_api.common.WebAdapter
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
+@WebAdapter
+@GoAroundV1APIController
 @RestController
 class AccountController(
     private val accountService: AccountService,
@@ -20,7 +24,6 @@ class AccountController(
 
     @PostMapping("/accounts/sign-in")
     fun signIn(): String {
-
         newAccountPort.newAccount();
         updateAccountPort.updateAccount();
 

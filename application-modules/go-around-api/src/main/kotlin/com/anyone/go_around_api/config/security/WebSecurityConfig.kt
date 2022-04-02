@@ -1,4 +1,4 @@
-package com.anyone.go_around_api.infra.security
+package com.anyone.go_around_api.config.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
