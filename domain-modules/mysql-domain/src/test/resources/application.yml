@@ -1,4 +1,7 @@
 spring:
+  sql:
+    init:
+      platform: local
   jpa:
     hibernate:
       ddl-auto: none

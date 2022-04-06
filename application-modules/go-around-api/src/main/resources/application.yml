@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: go-around-api
+  profiles:
+    active: local
+    include:
+      - mysql-domain
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
