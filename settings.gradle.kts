@@ -5,3 +5,6 @@ findProject(":application-modules:go-around-api")?.name = "go-around-api"
 include("domain-modules")
 include("domain-modules:mysql-domain")
 findProject(":domain-modules:mysql-domain")?.name = "mysql-domain"
+include("internal-modules")
+include("internal-modules:go-around-jwt")
+findProject(":internal-modules:go-around-jwt")?.name = "go-around-jwt"

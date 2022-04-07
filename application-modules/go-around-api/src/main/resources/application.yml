@@ -8,6 +8,8 @@ spring:
     active: local
     include:
       - mysql-domain
+      - go-around-jwt
+
   jpa:
     hibernate:
       ddl-auto: none

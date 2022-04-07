@@ -9,6 +9,7 @@ plugins {
 }
 dependencies {
     implementation(project(":domain-modules:mysql-domain"))
+    implementation(project(":internal-modules:go-around-jwt"))
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-security")
