@@ -1,4 +1,4 @@
-description = "go-around-jwt"
+description = "type"
 
 plugins {
     id("org.springframework.boot")
@@ -9,14 +9,8 @@ plugins {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation(project(":common-modules:type"))
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("io.jsonwebtoken:jjwt-api:0.11.2")
-
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 }

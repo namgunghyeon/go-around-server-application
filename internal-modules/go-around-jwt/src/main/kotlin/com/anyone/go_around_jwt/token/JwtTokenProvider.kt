@@ -1,6 +1,8 @@
 package com.anyone.go_around_jwt.token
 
 import com.anyone.go_around_jwt.config.JwtTokenProperties
+import com.anyone.type.account.GoAroundAccount
+import com.anyone.type.web.exception.InvalidTokenException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Component
 import java.security.Key
 import java.util.Date
 import javax.annotation.PostConstruct
-import javax.crypto.SecretKey
 
 @Component
 class JwtTokenProvider(
@@ -24,13 +25,59 @@ class JwtTokenProvider(
     }
 
     fun generateToken(name: String): String {
-        val clams: Claims = Jwts.claims().setSubject(name)
-        clams["email"] = name
+        val claims: Claims = Jwts.claims().setSubject(name)
+        claims["email"] = name
+        claims["token"] = "accessToken"
 
+       return this.buildToken(claims);
+    }
+
+    fun generateRefreshToken(token: String): String {
+        val claims = this.getClaimsFromToken(token)
+        claims["token"] = "refreshToken"
+
+        return this.buildToken(claims);
+    }
+
+    fun getEmailFromToken(token: String): String {
+        val claims: Claims = this.getClaimsFromToken(token)
+
+        return claims["email"] as String
+    }
+
+    private fun getClaimsFromToken(token: String): Claims {
+        try {
+            return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .body
+        } catch (ex: Exception) {
+            throw InvalidTokenException("토큰 정보가 유효하지 않습니다.")
+        }
+    }
+
+    fun parseToken(token: String): GoAroundAccount {
+        val claims = Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+
+
+        return GoAroundAccount(
+            "name",
+            "password",
+            "email"
+        );
+    }
+
+
+
+    private fun buildToken(claims: Claims): String {
         val now = Date()
         return Jwts.builder()
             .setHeaderParam("type", "JWT")
-            .setClaims(clams)
+            .setClaims(claims)
             .setIssuedAt(now)
             .setIssuer(jwtTokenProperties.issuer)
             .setExpiration(Date(now.time + jwtTokenProperties.duration))
@@ -38,27 +85,17 @@ class JwtTokenProvider(
             .compact()
     }
 
-    fun parseToken(token: String) {
-        val claims = Jwts.parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token)
-
-        //TODO
-        //유저 객체러 반화
-    }
-
     fun validate(token: String): Boolean {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token)
+            Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+            return true
         } catch (e: JwtException) {
-            //TODO 에러 재정의
-            throw e
+            return false;
         } catch (e: java.lang.IllegalArgumentException) {
-            //TODO 에러 재정의
-            throw e
+            return false;
         }
-
-        return false;
     }
 }
