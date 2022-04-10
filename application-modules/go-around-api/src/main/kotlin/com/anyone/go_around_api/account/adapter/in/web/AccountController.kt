@@ -11,6 +11,7 @@ import com.anyone.go_around_api.common.GoAroundV1APIController
 import com.anyone.go_around_api.common.WebAdapter
 import com.anyone.type.account.CurrentAccount
 import com.anyone.type.account.GoAroundAccount
+import com.anyone.type.web.response.Response
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController
 @GoAroundV1APIController
 @RestController
 class AccountController(
-    private val accountService: AccountService
+    private val accountService: AccountService,
+    private val accountDtoMapper: AccountDtoMapper
     ) {
 
     @PostMapping("/accounts/sign-up")
@@ -30,17 +32,17 @@ class AccountController(
     }
 
     @PostMapping("/accounts/sign-in")
-    fun signIn(@RequestBody signInDto: SignInDto): TokenDto {
+    fun signIn(@RequestBody signInDto: SignInDto): Response<TokenDto> {
         val tokenVo: TokenVo = accountService.signIn(signInDto.email, signInDto.password)
 
-        return TokenDto(tokenVo.accessToken, tokenVo.refreshToken)
+        return Response(accountDtoMapper.toTokenDto(tokenVo))
     }
 
     @GetMapping("/accounts/me")
-    fun me(@CurrentAccount goAroundAccount: GoAroundAccount): UserInfoDto {
+    fun me(@CurrentAccount goAroundAccount: GoAroundAccount): Response<UserInfoDto> {
         val userInfoVo: UserInfoVo = accountService.me(goAroundAccount.username)
 
-        return UserInfoDto(userInfoVo.name, userInfoVo.email)
+        return Response(accountDtoMapper.toUserInfoDto(userInfoVo))
     }
 
     @PutMapping("/accounts/password")
