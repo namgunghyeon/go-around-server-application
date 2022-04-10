@@ -7,7 +7,8 @@ import com.anyone.go_around_api.common.Mapper
 @Mapper
 class CategoryDtoMapper {
     fun toCategoryDtoList(categoryVos: List<CategoryVo>): List<CategoryDto> {
-        categoryVos.stream().map { CategoryDto(it.id, it.name) }
-        return emptyList()
+        return categoryVos.stream()
+            .map { CategoryDto(it.id, it.code) }
+            .toList()
     }
 }

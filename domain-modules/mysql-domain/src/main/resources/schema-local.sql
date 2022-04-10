@@ -12,31 +12,31 @@ CREATE TABLE IF NOT EXISTS account
 CREATE TABLE IF NOT EXISTS category
 (
     `id`                        BIGINT NOT NULL auto_increment,
-    `name`                      VARCHAR (100) NOT NULL comment '카테고리 이름',
+    `code`                      VARCHAR (100) NOT NULL comment '카테고리 이름',
     `description`               VARCHAR (100) NOT NULL comment '설명',
     `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY ( id )
     );
 
+CREATE TABLE IF NOT EXISTS account_favorite_category
+(
+    `account_id`                BIGINT NOT NULL comment '사용자 아이디',
+    `category_id`               BIGINT NOT NULL comment '카테고리 아이디',
+    `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ( account_id,  category_id)
+    );
+
 CREATE TABLE IF NOT EXISTS topic
 (
     `id`                        BIGINT NOT NULL auto_increment,
     `category_id`               BIGINT NOT NULL comment '카테고리 아이디',
-    `name`                      VARCHAR (100) NOT NULL comment '토픽 이름',
+    `code`                      VARCHAR (100) NOT NULL comment '토픽 이름',
     `description`               VARCHAR (100) NOT NULL comment '설명',
     `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY ( id )
-);
-
-CREATE TABLE IF NOT EXISTS account_favorite_topic
-(
-    `account_id`                BIGINT NOT NULL comment '사용자 아이디',
-    `category_id`               BIGINT NOT NULL comment '토픽 아이디',
-    `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY ( account_id,  category_id)
 );
 
 CREATE TABLE IF NOT EXISTS feed
