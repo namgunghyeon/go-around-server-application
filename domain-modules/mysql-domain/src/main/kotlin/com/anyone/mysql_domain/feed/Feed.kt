@@ -7,8 +7,8 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Feed(): BaseEntity() {
+class Feed(accountId: Long, content: String): BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long? = 0
 }
