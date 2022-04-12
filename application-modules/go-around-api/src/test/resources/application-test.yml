@@ -3,3 +3,9 @@ spring:
     init:
       platform: local
       mode: always
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG

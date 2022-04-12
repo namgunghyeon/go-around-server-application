@@ -4,5 +4,6 @@ import com.anyone.type.account.GoAroundAccount
 
 data class NewFeedVo(
     val goAroundAccount: GoAroundAccount,
+    val title: String,
     val content: String
 )

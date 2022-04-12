@@ -8,6 +8,6 @@ import com.anyone.type.account.GoAroundAccount
 @Mapper
 class FeedEntityMapper {
     fun toFeed(newFeedVo: NewFeedVo): Feed {
-        return Feed(newFeedVo.goAroundAccount.accountId, newFeedVo.content)
+        return Feed(newFeedVo.goAroundAccount.accountId, newFeedVo.title, newFeedVo.content)
     }
 }
