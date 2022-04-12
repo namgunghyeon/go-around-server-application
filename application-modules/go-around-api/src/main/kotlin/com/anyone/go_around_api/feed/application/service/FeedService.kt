@@ -1,22 +1,30 @@
 package com.anyone.go_around_api.feed.application.service
 
-import com.anyone.go_around_api.feed.adapter.out.FeedEntityMapper
 import com.anyone.go_around_api.feed.application.port.`in`.FeedUseCase
-import com.anyone.go_around_api.feed.application.port.out.vo.NewFeedVo
+import com.anyone.go_around_api.feed.application.port.out.LoadFeedPort
+import com.anyone.go_around_api.feed.application.port.out.vo.CreateFeedVo
 import com.anyone.go_around_api.feed.application.port.out.NewFeedPort
-import com.anyone.mysql_domain.feed.FeedRepository
+import com.anyone.go_around_api.feed.application.port.out.vo.FeedVo
 import org.springframework.stereotype.Service
 
 @Service
 class FeedService(
-    private val newFeedPort: NewFeedPort
+    private val newFeedPort: NewFeedPort,
+    private val loadFeedPort: LoadFeedPort
 ): FeedUseCase {
-    override fun newFeed(newFeedVo: NewFeedVo) {
-        newFeedPort.saveFeed(newFeedVo)
+    override fun newFeed(createFeedVo: CreateFeedVo): FeedVo {
+        val feed = newFeedPort.saveFeed(createFeedVo)
+
+        return FeedVo(
+            feed.id!!,
+            feed.title,
+            feed.content
+        )
     }
 
-    override fun getFeeds() {
-
+    override fun getFeeds(accountId: Long): List<FeedVo> {
+        loadFeedPort.findAllByAccountId(accountId)
+        return listOf()
     }
 
     override fun updateFeed() {

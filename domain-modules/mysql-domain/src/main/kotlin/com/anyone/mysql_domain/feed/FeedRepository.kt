@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface FeedRepository: JpaRepository<Feed, Long> {
+    fun findAllByAccountId(accountId: Long): List<Feed>
 }

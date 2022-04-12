@@ -1,10 +1,13 @@
 package com.anyone.go_around_api.feed.adapter.`in`.web
 
 import com.anyone.go_around_api.common.GoAroundV1APIController
-import com.anyone.go_around_api.feed.adapter.`in`.web.request.NewFeedDto
+import com.anyone.go_around_api.feed.adapter.`in`.web.request.CreateFeedDto
+import com.anyone.go_around_api.feed.adapter.`in`.web.response.FeedDto
 import com.anyone.go_around_api.feed.application.port.`in`.FeedUseCase
+import com.anyone.go_around_api.feed.application.port.out.vo.FeedVo
 import com.anyone.type.account.CurrentAccount
 import com.anyone.type.account.GoAroundAccount
+import com.anyone.type.web.response.Response
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,17 +20,19 @@ class FeedController(
     private val feedDtoMapper: FeedDtoMapper
 ) {
     @GetMapping("/feeds")
-    fun feeds(@CurrentAccount goAroundAccount: GoAroundAccount): String {
-        feedUseCase.getFeeds()
-        return "feeds";
+    fun feeds(@CurrentAccount goAroundAccount: GoAroundAccount): Response<List<FeedVo>> {
+        feedUseCase.getFeeds(goAroundAccount.accountId)
+
+        return Response(listOf())
     }
 
     @PostMapping("/feeds")
     fun newFeed(
         @CurrentAccount goAroundAccount: GoAroundAccount,
-        @RequestBody newFeedDto: NewFeedDto
-    ): String {
-        feedUseCase.newFeed(feedDtoMapper.toNewFeedVo(goAroundAccount, newFeedDto))
-        return "feeds";
+        @RequestBody newFeedDto: CreateFeedDto
+    ): Response<FeedDto> {
+        val feedVo = feedUseCase.newFeed(feedDtoMapper.toCreateFeedVo(goAroundAccount, newFeedDto))
+
+        return Response(feedDtoMapper.toFeedDto(feedVo))
     }
 }

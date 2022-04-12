@@ -1,6 +1,6 @@
 package com.anyone.go_around_api
 
-import com.anyone.go_around_api.feed.adapter.`in`.web.request.NewFeedDto
+import com.anyone.go_around_api.feed.adapter.`in`.web.request.CreateFeedDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,7 +34,7 @@ class FeedControllerTests@Autowired constructor(
 
     @Test
     fun `피드 등록`() {
-        val stringFeed = objectMapper.writeValueAsString(NewFeedDto("title", "content"))
+        val stringFeed = objectMapper.writeValueAsString(CreateFeedDto("title", "content"))
         mockMvc.post("/api/v1/feeds") {
             contentType = MediaType.APPLICATION_JSON
             content = stringFeed
