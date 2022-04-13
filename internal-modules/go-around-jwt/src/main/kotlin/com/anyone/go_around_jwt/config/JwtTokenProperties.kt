@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties(prefix = "jwt")
 class JwtTokenProperties(
     var secret: String,
-    var duration: Long,
+    var accessTokenDuration: Long,
+    var refreshTokenDuration: Long,
     val issuer: String
 )

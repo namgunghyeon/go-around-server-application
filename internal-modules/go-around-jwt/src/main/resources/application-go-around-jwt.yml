@@ -1,4 +1,5 @@
 jwt:
   secret: thisistestusersecretkeyprojectnameismologaaaaaaaaaaaaaaaa
-  duration: 1800000
+  accessTokenDuration: 2592000000
+  refreshTokenDuration: 5184000000
   issuer: go-around

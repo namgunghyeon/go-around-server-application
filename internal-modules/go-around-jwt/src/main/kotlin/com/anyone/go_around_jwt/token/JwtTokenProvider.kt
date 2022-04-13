@@ -81,7 +81,7 @@ class JwtTokenProvider(
             .setClaims(claims)
             .setIssuedAt(now)
             .setIssuer(jwtTokenProperties.issuer)
-            .setExpiration(Date(now.time + jwtTokenProperties.duration))
+            .setExpiration(Date(now.time + jwtTokenProperties.accessTokenDuration))
             .signWith(this.key, SignatureAlgorithm.HS256)
             .compact()
     }
