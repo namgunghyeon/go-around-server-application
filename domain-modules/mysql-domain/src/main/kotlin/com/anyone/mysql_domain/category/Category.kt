@@ -7,9 +7,10 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Category(code: String): BaseEntity() {
+class Category(code: String, displayName: String): BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0;
     var code: String = code;
+    var displayName: String = displayName;
 }

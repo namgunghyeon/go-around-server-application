@@ -11,7 +11,7 @@ class CategoryService(
 ): CategoryUseCase {
     override fun getAllCategory(): List<CategoryVo> {
         return loadCategoryPort.findAllCategory()
-            .map { CategoryVo(it.id, it.code) }
+            .map { CategoryVo(it.id, it.code, it.displayName) }
             .toMutableList()
     }
 }

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS category
 (
     `id`                        BIGINT NOT NULL auto_increment,
     `code`                      VARCHAR (100) NOT NULL comment '카테고리 이름',
+    `display_name`              VARCHAR (100) NOT NULL comment '화면 표시 이름',
     `description`               VARCHAR (100) NOT NULL comment '설명',
     `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -28,23 +29,13 @@ CREATE TABLE IF NOT EXISTS account_favorite_category
     PRIMARY KEY ( account_id,  category_id)
     );
 
-CREATE TABLE IF NOT EXISTS topic
-(
-    `id`                        BIGINT NOT NULL auto_increment,
-    `category_id`               BIGINT NOT NULL comment '카테고리 아이디',
-    `code`                      VARCHAR (100) NOT NULL comment '토픽 이름',
-    `description`               VARCHAR (100) NOT NULL comment '설명',
-    `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY ( id )
-);
-
 CREATE TABLE IF NOT EXISTS feed
 (
     `id`                        BIGINT NOT NULL auto_increment,
-    `account_id`               BIGINT NOT NULL comment '사용자 아이디',
+    `category_id`               BIGINT NOT NULL comment '카테고리 아이디',
+    `account_id`                BIGINT NOT NULL comment '사용자 아이디',
     `title`                     VARCHAR (100) NOT NULL comment '제목',
-    `content`                  VARCHAR (100) NOT NULL comment '내용',
+    `content`                   VARCHAR (100) NOT NULL comment '내용',
     `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY ( id )
@@ -114,4 +105,17 @@ CREATE TABLE IF NOT EXISTS feed_tag
     PRIMARY KEY ( id )
     );
 
+
+
+-- 사용하지 않음
+CREATE TABLE IF NOT EXISTS topic
+(
+    `id`                        BIGINT NOT NULL auto_increment,
+    `category_id`               BIGINT NOT NULL comment '카테고리 아이디',
+    `code`                      VARCHAR (100) NOT NULL comment '토픽 이름',
+    `description`               VARCHAR (100) NOT NULL comment '설명',
+    `created_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`                TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ( id )
+    );
 

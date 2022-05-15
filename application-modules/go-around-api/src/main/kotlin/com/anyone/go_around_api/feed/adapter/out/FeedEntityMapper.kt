@@ -7,6 +7,11 @@ import com.anyone.mysql_domain.feed.Feed
 @Mapper
 class FeedEntityMapper {
     fun toFeed(createFeedVo: CreateFeedVo): Feed {
-        return Feed(createFeedVo.goAroundAccount.accountId, createFeedVo.title, createFeedVo.content)
+        return Feed(
+            createFeedVo.goAroundAccount.accountId,
+            1L,
+            createFeedVo.title,
+            createFeedVo.content
+        )
     }
 }
