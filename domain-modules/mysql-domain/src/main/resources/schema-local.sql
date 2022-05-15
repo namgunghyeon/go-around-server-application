@@ -63,6 +63,8 @@ CREATE TABLE IF NOT EXISTS feed_attachment
     PRIMARY KEY ( id )
     );
 
+
+-- feed_survey 지우고 feed_survey_item 하고 feed_id하고 연결?
 CREATE TABLE IF NOT EXISTS feed_survey
 (
     `id`                        BIGINT NOT NULL auto_increment,
