@@ -19,14 +19,10 @@ class AccountService(
 ): AccountUseCase {
     override fun signIn(email: String, password: String): TokenVo {
         val authenticationToken = UsernamePasswordAuthenticationToken(email, password)
-        println(authenticationToken)
         val authentication = authenticationManager.authenticate(authenticationToken)
-        println(authentication)
         SecurityContextHolder.getContext().authentication = authentication
 
-        println("dfdfdfd")
         val accessToken: String = jwtTokenProvider.generateToken(email)
-        println(accessToken)
         val refreshToken: String = jwtTokenProvider.generateRefreshToken(accessToken)
 
         return TokenVo(accessToken, refreshToken)
