@@ -1,7 +1,3 @@
-type Query {
-  categories: [CategoryDto]
-}
-
 type CategoryDto {
   id: ID
   code: String

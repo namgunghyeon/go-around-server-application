@@ -9,6 +9,7 @@ import com.anyone.mysql_domain.account.Account
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -29,7 +30,9 @@ class AccountService(
     }
 
     override fun me(email: String): UserInfoVo {
-        val account: Account = loadAccountPort.loadAccountByEmail(email)
+        val account: Account = loadAccountPort
+            .loadAccountByEmail(email)?:
+        throw UsernameNotFoundException("사용자를 찾지 못했습니다.")
 
         return UserInfoVo(account.username, account.email)
     }

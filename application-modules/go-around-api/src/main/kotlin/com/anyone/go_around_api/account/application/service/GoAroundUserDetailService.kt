@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.function.Predicate
@@ -18,7 +19,9 @@ class GoAroundUserDetailService(
     private val loadAccountPort: LoadAccountPort
 ): UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
-        val account: Account = loadAccountPort.loadAccountByEmail(username)
+        val account: Account = loadAccountPort
+            .loadAccountByEmail(username)?:
+        throw UsernameNotFoundException("사용자를 찾지 못했습니다.")
 
         return GoAroundAccount(
             account.id!!,
@@ -26,6 +29,14 @@ class GoAroundUserDetailService(
             account.password,
             account.email
         )
+    }
+
+    fun getCurrentUserEmail(): String {
+        return Optional
+            .ofNullable(SecurityContextHolder.getContext())
+            .map { obj: SecurityContext -> obj.authentication }
+            .map { obj: Authentication -> obj.name }
+            .orElseThrow()
     }
 
     fun isAuthenticated(): Boolean {

@@ -1,0 +1,9 @@
+type UserInfoDto {
+  username: String
+  email: String
+}
+
+type TokenDto {
+  token: String
+  refreshToken: String
+}
