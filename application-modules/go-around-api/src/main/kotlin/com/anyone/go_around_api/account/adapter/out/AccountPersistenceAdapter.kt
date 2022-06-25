@@ -13,8 +13,10 @@ import java.util.*
 class AccountPersistenceAdapter(
     private val accountRepository: AccountRepository
 ): SaveAccountPort, UpdateAccountPort, LoadAccountPort {
-    override fun newAccount() {
-        println("new account")
+    override fun newAccount(email: String, password: String): Account {
+        return accountRepository.save(
+            Account(email, email, password)
+        )
     }
 
     override fun updateAccount() {
@@ -25,5 +27,9 @@ class AccountPersistenceAdapter(
         return accountRepository
             .findByEmail(email)?:
             throw UsernameNotFoundException("사용자를 찾지 못했습니다.")
+    }
+
+    override fun existsByEmail(email: String): Boolean {
+        return accountRepository.existsByEmail(email);
     }
 }

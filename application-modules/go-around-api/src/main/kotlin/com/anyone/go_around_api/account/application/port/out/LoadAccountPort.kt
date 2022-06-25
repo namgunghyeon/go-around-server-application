@@ -5,4 +5,5 @@ import java.util.Optional
 
 interface LoadAccountPort {
     fun loadAccountByEmail(email: String): Account?
+    fun existsByEmail(email: String): Boolean
 }

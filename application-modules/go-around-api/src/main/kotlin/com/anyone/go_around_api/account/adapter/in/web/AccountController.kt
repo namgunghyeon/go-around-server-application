@@ -27,8 +27,10 @@ class AccountController(
     ) {
 
     @PostMapping("/accounts/sign-up")
-    fun signUp(@RequestBody signUpDto: SignUpDto): String {
-        return "회원 가입";
+    fun signUp(@RequestBody signUpDto: SignUpDto): Response<UserInfoDto> {
+        val userInfoVo: UserInfoVo = accountService.signUp(signUpDto.email, signUpDto.password);
+
+        return Response(accountDtoMapper.toUserInfoDto(userInfoVo))
     }
 
     @PostMapping("/accounts/sign-in")

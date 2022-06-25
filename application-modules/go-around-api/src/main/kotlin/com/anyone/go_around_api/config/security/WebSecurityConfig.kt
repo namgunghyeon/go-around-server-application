@@ -7,21 +7,22 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class WebSecurityConfig(): WebSecurityConfigurerAdapter() {
+class WebSecurityConfig {
     @Autowired
     lateinit var objectMapper: ObjectMapper
     @Autowired
@@ -49,8 +50,8 @@ class WebSecurityConfig(): WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    override fun authenticationManagerBean(): AuthenticationManager {
-        return super.authenticationManagerBean()
+    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager {
+        return authenticationConfiguration.authenticationManager
     }
 
     @Bean
@@ -63,7 +64,9 @@ class WebSecurityConfig(): WebSecurityConfigurerAdapter() {
         return JwtErrorHandlerFilter(objectMapper)
     }
 
-    override fun configure(http: HttpSecurity) {
+
+    @Bean
+    fun filterChain(http: HttpSecurity): SecurityFilterChain? {
         http.csrf().disable()
             .logout().disable()
             .authorizeRequests()
@@ -75,5 +78,7 @@ class WebSecurityConfig(): WebSecurityConfigurerAdapter() {
         http.addFilterBefore(jwtHandlerFilter(), JwtAuthenticationTokenFilter::class.java)
         http.headers().frameOptions().disable()
         http.headers().cacheControl()
+
+        return http.build()
     }
 }

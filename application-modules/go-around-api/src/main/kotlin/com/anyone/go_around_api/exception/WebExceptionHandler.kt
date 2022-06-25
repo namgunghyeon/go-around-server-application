@@ -1,5 +1,6 @@
 package com.anyone.go_around_api.exception
 
+import com.anyone.type.web.exception.ExistsEmailException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -21,6 +22,12 @@ class WebExceptionHandler {
     fun handleInvalidTokenException(ex: InvalidTokenException): ResponseEntity<ErrorResponse> {
         val errorResponse = ErrorResponse("invalid token")
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
+    }
+
+    @ExceptionHandler(value = [ExistsEmailException::class])
+    fun handleExistsEmailException(ex: ExistsEmailException): ResponseEntity<ErrorResponse> {
+        val errorResponse = ErrorResponse(ex.message)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
 
     @ExceptionHandler(value = [BadCredentialsException::class])

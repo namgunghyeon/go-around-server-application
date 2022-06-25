@@ -5,7 +5,7 @@ import com.anyone.go_around_api.account.application.service.vo.UserInfoVo
 
 interface AccountUseCase {
     fun signIn(email: String, password: String): TokenVo
-    fun signUp()
+    fun signUp(email: String, password: String): UserInfoVo
     fun me(email: String): UserInfoVo
     fun updateProfile()
     fun updatePassword()
