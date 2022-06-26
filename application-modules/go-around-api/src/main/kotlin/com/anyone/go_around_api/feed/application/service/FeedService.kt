@@ -4,7 +4,9 @@ import com.anyone.go_around_api.feed.application.port.`in`.FeedUseCase
 import com.anyone.go_around_api.feed.application.port.out.LoadFeedPort
 import com.anyone.go_around_api.feed.application.port.out.vo.CreateFeedVo
 import com.anyone.go_around_api.feed.application.port.out.NewFeedPort
+import com.anyone.go_around_api.feed.application.port.out.vo.FeedPramsVo
 import com.anyone.go_around_api.feed.application.port.out.vo.FeedVo
+import com.anyone.go_around_api.feed.application.service.dto.RequestFeedPramsDto
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,8 +24,8 @@ class FeedService(
         )
     }
 
-    override fun getFeeds(accountId: Long): List<FeedVo> {
-        loadFeedPort.findAllByAccountId(accountId)
+    override fun getFeeds(requestFeedPramsDto: RequestFeedPramsDto): List<FeedVo> {
+        loadFeedPort.findAll(FeedPramsVo());
         return listOf()
     }
 

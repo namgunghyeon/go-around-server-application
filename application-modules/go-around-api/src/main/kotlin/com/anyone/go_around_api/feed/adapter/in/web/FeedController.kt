@@ -5,8 +5,10 @@ import com.anyone.go_around_api.feed.adapter.`in`.web.request.CreateFeedDto
 import com.anyone.go_around_api.feed.adapter.`in`.web.response.FeedDto
 import com.anyone.go_around_api.feed.application.port.`in`.FeedUseCase
 import com.anyone.go_around_api.feed.application.port.out.vo.FeedVo
+import com.anyone.go_around_api.feed.application.service.dto.RequestFeedPramsDto
 import com.anyone.type.account.CurrentAccount
 import com.anyone.type.account.GoAroundAccount
+import com.anyone.type.category.CategoryType
 import com.anyone.type.web.response.Response
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,7 +23,7 @@ class FeedController(
 ) {
     @GetMapping("/feeds")
     fun feeds(@CurrentAccount goAroundAccount: GoAroundAccount): Response<List<FeedVo>> {
-        feedUseCase.getFeeds(goAroundAccount.accountId)
+        feedUseCase.getFeeds(RequestFeedPramsDto(1L, 1L, CategoryType.CROSS_FIT))
 
         return Response(listOf())
     }
