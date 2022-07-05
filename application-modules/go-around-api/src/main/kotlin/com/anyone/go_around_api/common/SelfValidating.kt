@@ -14,7 +14,7 @@ abstract class SelfValidating<T> {
 
     protected open fun validateSelf() {
         val violations = validator!!.validate(this as T)
-        if (!violations.isEmpty()) {
+        if (violations.isNotEmpty()) {
             throw ConstraintViolationException(violations)
         }
     }
