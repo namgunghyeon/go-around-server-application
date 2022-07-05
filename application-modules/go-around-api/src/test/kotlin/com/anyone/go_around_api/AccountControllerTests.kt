@@ -20,23 +20,20 @@ class AccountControllerTests @Autowired constructor(
     private val objectMapper: ObjectMapper
 ) {
     @Test
-    fun `회원가입` () {
+    fun `회원가입_그리고_로그인` () {
         mockMvc.perform(
             post("/api/v1/accounts/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(SignUpDto("222test@gmail.com","name","xptmxm#1")))
         ).andExpect(jsonPath("$.data.username").exists())
             .andExpect(jsonPath("$.data.email").exists())
-    }
 
-    @Test
-    fun `로그인 성공` () {
         mockMvc.perform(
             post("/api/v1/accounts/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(SignUpDto("222test@gmail.com","name","xptmxm#1")))
-        ).andExpect(jsonPath("$.data.username").exists())
-            .andExpect(jsonPath("$.data.email").exists())
+        ).andExpect(jsonPath("$.data.token").exists())
+            .andExpect(jsonPath("$.data.refreshToken").exists())
     }
 
     @Test

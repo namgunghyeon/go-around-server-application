@@ -37,6 +37,8 @@ class AccountController(
     fun signIn(@RequestBody signInDto: SignInDto): Response<TokenDto> {
         val tokenVo: TokenVo = accountService.signIn(signInDto.email, signInDto.password)
 
+        println("dfdfdtoken")
+        println(tokenVo)
         return Response(accountDtoMapper.toTokenDto(tokenVo))
     }
 
