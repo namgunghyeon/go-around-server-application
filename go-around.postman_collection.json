@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "fd19b33c-e681-46a6-a13e-b32ef638d41c",
+		"name": "go-around",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "카테고리",
+			"item": [
+				{
+					"name": "카테고리 조회",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ0b2tlbiI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNjUyNjA0MDAzLCJpc3MiOiJnby1hcm91bmQiLCJleHAiOjE2NTUxOTYwMDN9.JwNOsyr8ZVGM-GJvk0e0NFJBFihj4gTVoaGDV4j9rPY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8081/api/v1/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "회원",
+			"item": [
+				{
+					"name": "회원가입",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"name\": \"dfdf\",\n    \"password\": \"xptmxm#1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/accounts/sign-up",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"xptmxm#1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/accounts/sign-in",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ0b2tlbiI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNjUyNjA0MDAzLCJpc3MiOiJnby1hcm91bmQiLCJleHAiOjE2NTUxOTYwMDN9.JwNOsyr8ZVGM-GJvk0e0NFJBFihj4gTVoaGDV4j9rPY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"xptmxm#1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/accounts/me",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "graphql",
+			"item": [
+				{
+					"name": "카테고리 조회",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ0b2tlbiI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNjU1NzI5NTExLCJpc3MiOiJnby1hcm91bmQiLCJleHAiOjE2NTgzMjE1MTF9.rYExSI0MZKdiiyIyCXP8Cp7x3jOtuN_0jfe14CRy5iw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    categories{\n        id,\n        code,\n        displayName\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ0b2tlbiI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNjU1NzI5NTExLCJpc3MiOiJnby1hcm91bmQiLCJleHAiOjE2NTgzMjE1MTF9.rYExSI0MZKdiiyIyCXP8Cp7x3jOtuN_0jfe14CRy5iw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    me{\n       email,\n       username\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "로그인",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ0b2tlbiI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNjU1NzI5NTExLCJpc3MiOiJnby1hcm91bmQiLCJleHAiOjE2NTgzMjE1MTF9.rYExSI0MZKdiiyIyCXP8Cp7x3jOtuN_0jfe14CRy5iw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    me{\n       email,\n       username\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "피드 추가",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ0b2tlbiI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNjU1NzI5NTExLCJpc3MiOiJnby1hcm91bmQiLCJleHAiOjE2NTgzMjE1MTF9.rYExSI0MZKdiiyIyCXP8Cp7x3jOtuN_0jfe14CRy5iw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    me{\n       email,\n       username\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
