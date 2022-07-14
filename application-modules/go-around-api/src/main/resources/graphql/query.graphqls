@@ -1,5 +1,6 @@
 type Mutation {
     login(email: String!, password: String!): TokenDto
+    newFeed(feed: CreateFeedDto!): FeedDto
 }
 
 type Query {

@@ -15,12 +15,11 @@ class AccountMutation(
     private val accountDtoMapper: AccountDtoMapper
 ) {
     @MutationMapping
-    fun sigIn(
+    fun login(
         @Argument("email") email: String,
         @Argument("password") password: String
     ): TokenDto {
         val tokenVo: TokenVo = accountService.signIn(email, password)
         return accountDtoMapper.toTokenDto(tokenVo)
     }
-
 }

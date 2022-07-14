@@ -1,4 +1,4 @@
-package com.anyone.go_around_api.feed.adapter.`in`.web
+package com.anyone.go_around_api.feed.adapter.`in`
 
 import com.anyone.go_around_api.common.Mapper
 import com.anyone.go_around_api.feed.adapter.`in`.web.request.CreateFeedDto

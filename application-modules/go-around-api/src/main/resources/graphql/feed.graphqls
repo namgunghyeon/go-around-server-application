@@ -1,0 +1,10 @@
+input CreateFeedDto {
+  title: String
+  content: String
+}
+
+type FeedDto {
+  id: ID
+  title: String
+  content: String
+}

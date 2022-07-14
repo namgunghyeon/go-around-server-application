@@ -1,6 +1,7 @@
 package com.anyone.go_around_api.feed.adapter.`in`.web
 
 import com.anyone.go_around_api.common.GoAroundV1APIController
+import com.anyone.go_around_api.feed.adapter.`in`.FeedDtoMapper
 import com.anyone.go_around_api.feed.adapter.`in`.web.request.CreateFeedDto
 import com.anyone.go_around_api.feed.adapter.`in`.web.response.FeedDto
 import com.anyone.go_around_api.feed.application.port.`in`.FeedUseCase
